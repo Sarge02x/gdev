@@ -1,10 +1,11 @@
 {
-  "main.css": "static/css/main.a21c6042.css",
-  "main.css.map": "static/css/main.a21c6042.css.map",
-  "main.js": "static/js/main.653bb8ac.js",
-  "main.js.map": "static/js/main.653bb8ac.js.map",
+  "main.css": "static/css/main.77644fc8.css",
+  "main.css.map": "static/css/main.77644fc8.css.map",
+  "main.js": "static/js/main.2743f403.js",
+  "main.js.map": "static/js/main.2743f403.js.map",
   "static/media/icomoon.eot": "static/media/icomoon.b2cb1869.eot",
   "static/media/icomoon.svg": "static/media/icomoon.8f8e11fb.svg",
   "static/media/icomoon.ttf": "static/media/icomoon.8d00fdd3.ttf",
-  "static/media/icomoon.woff": "static/media/icomoon.3675919e.woff"
+  "static/media/icomoon.woff": "static/media/icomoon.3675919e.woff",
+  "static/media/unfold.png": "static/media/unfold.69d8fff5.png"
 }
