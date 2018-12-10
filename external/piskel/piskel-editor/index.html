@@ -153,6 +153,8 @@
         <div class="preview-contextual-action  best-size-button" rel="tooltip" data-placement="left"></div>
         <div class="preview-contextual-action  full-size-button" rel="tooltip" data-placement="left">Full</div>
       </div>
+      <div class="preview-contextual-action  toggle-grid-button  icon-minimap-grid-white"
+        title="Toggle grid" rel="tooltip" data-placement="bottom"></div>
       <div class="preview-contextual-action  open-popup-preview-button  icon-minimap-popup-preview-arrow-white"
            title="Open preview in popup" rel="tooltip" data-placement="bottom"></div>
     </div>
@@ -211,10 +213,14 @@
         data-layer-index="{{layerindex}}">
         <span class="layer-name" data-placement="top">{{layername}}</span>
         <span class="layer-item-opacity"
-              title="Layer opacity" rel="tooltip" data-placement="top">
-          {{opacity}}&#945;
+              title="Layer opacity ({{opacity}})" rel="tooltip" data-placement="top">
+            &#945;
         </span>
     </li>
+  </script>
+    
+  <script type="text/template" id="layer-name-input-template">
+    <input class="textfield layer-name-input" type="text" autocomplete="off" value="{{layername}}" />
   </script>
 </div>
 
@@ -252,7 +258,7 @@
 
   <script type="text/template" id="palettes-list-no-colors-partial">
     <div class="palettes-list-no-colors">
-      No color in the selected palette ...
+      No color in this palette…
     </div>
   </script>
 
@@ -984,7 +990,7 @@
       Piskel
       <span rel="tooltip" data-placement="bottom" title="View release notes">
         <a  class="settings-version" target="_blank"
-            href="https://github.com/piskelapp/piskel/releases/tag/v0.13.0">v0.13.0</a>
+            href="https://github.com/piskelapp/piskel/releases/tag/v0.15.0-SNAPSHOT">v0.15.0-SNAPSHOT</a>
       </span>
     </div>
   </div>
@@ -1013,8 +1019,8 @@
       </div>
     </div>
     <div class="settings-item settings-item-grid-spacing">
-      <label>Grid Spacing</label>
-      <div class="grid-spacing-container spacing-picker-container">
+      <label>Grid spacing</label>
+      <div class="grid-spacing-container size-picker-container">
         <div class="size-picker-option"
           title="1px" rel="tooltip" data-placement="top" data-size="1"></div>
         <div class="size-picker-option"
@@ -1323,24 +1329,47 @@
         </div>
       </div>
     </div>
-    <div class="export-panel-section export-panel-row">
-      <button type="button" class="button button-primary png-download-button">Download</button>
-      <span class="png-export-dimension-info export-info"></span>
+    <div class="export-panel-section">
+      <div style="padding-bottom: 5px">
+        <span class="highlight export-panel-row">Spritesheet file export: </span>
+      </div>
+      <div class="export-panel-row">
+        <button type="button" class="button button-primary png-download-button">Download</button>
+        <span class="png-export-dimension-info export-info"></span>
+      </div>
     </div>
-    <div class="export-panel-section export-panel-row png-export-datauri-section">
-      <button type="button" style="white-space: nowrap;" class="button button-primary datauri-open-button">To data-uri</button>
-      <span class="png-export-datauri-info export-info">Open the PNG export in your browser as a data-uri</span>
+    <div class="export-panel-section">
+      <div style="padding-bottom: 5px">
+        <span class="highlight export-panel-row">Spritesheet data-uri export: </span>
+      </div>
+      <div class="export-panel-row">
+        <button type="button" style="white-space: nowrap;" class="button button-primary datauri-open-button">Open</button>
+        <span class="export-info">Open the spritesheet as a data-uri</span>
+      </div>
     </div>
 
     <div class="export-panel-section">
       <div style="padding-bottom: 5px">
-        <span class="highlight export-panel-row">Export for PixiJS Movie: </span>
+        <span class="highlight export-panel-row">PixiJS Movie export: </span>
+      </div>
+      <div class="checkbox-container" style="margin: 5px 0;">
+        <input id="png-pixi-inline-image" class="png-pixi-inline-image-checkbox checkbox-fix" type="checkbox" />
+        <label for="png-pixi-inline-image">Inline spritesheet as data-uri</label>
       </div>
       <div class="export-panel-row">
         <button type="button" class="button button-primary png-pixi-download-button"/>Download</button>
-        <span class="png-export-dimension-info export-info">Spritesheet with JSON metadata</span>
+        <span class="export-info">Spritesheet with JSON metadata</span>
       </div>
+    </div>
 
+    <div class="export-panel-section">
+      <div style="padding-bottom: 5px">
+        <span class="highlight">Selected frame export:</span>
+      </div>
+      <div class="export-panel-row">
+        <button type="button" class="button button-primary selected-frame-download-button"/>Download</button>
+        <span class="export-info">Single frame as a PNG file</span>
+      </div>
     </div>
 
   </div>
@@ -1391,10 +1420,15 @@
         <input id="zip-split-layers" class="zip-split-layers-checkbox checkbox-fix" type="checkbox" />
         <label for="zip-split-layers">Split by layers</label>
       </div>
+      <div class="checkbox-container use-layer-names-container" style="margin: 5px 0;">
+        <input id="zip-use-layer-names" class="zip-use-layer-names-checkbox checkbox-fix" type="checkbox" />
+        <label for="zip-use-layer-names">Index by layer names</label>
+      </div>
       <button type="button" class="button button-primary zip-generate-button"/>Download ZIP</button>
     </div>
   </div>
 </script>
+
   <script type="text/html" id="templates/settings/export/misc.html">
   <div class="export-panel-misc">
     <div class="export-panel-header export-info">
@@ -1409,15 +1443,6 @@
       </div>
       <button type="button" class="button button-primary c-download-button">Download C file</button>
     </div>
-    <div class="export-panel-section">
-      <div style="padding-bottom: 5px">
-        <span class="highlight">Export selected frame as PNG File: </span>
-        <span class="export-info">
-          PNG export of the currently selected frame.
-        </span>
-      </div>
-      <button type="button" class="button button-primary selected-frame-download-button">Download</button>
-    </div>
   </div>
 </script>
 
@@ -1425,9 +1450,9 @@
     (function () {
 
   /**
-   * See @Gruntfile.js => after build, -2018-04-27-08-20 is replaced by the build version
+   * See @Gruntfile.js => after build, -2018-11-07-10-40 is replaced by the build version
    */
-  var version = '-2018-04-27-08-20';
+  var version = '-2018-11-07-10-40';
   var versionHasNotBeenReplaced = version.indexOf('@@') === 0;
   if (versionHasNotBeenReplaced)  {
     version = '';
@@ -1442,7 +1467,7 @@
     loadingMask.style.opacity = 0;
     window.setTimeout(function () {loadingMask.parentNode.removeChild(loadingMask);}, 600);
     pskl.app.init();
-    pskl._releaseVersion = '0.13.0';
+    pskl._releaseVersion = '0.15.0-SNAPSHOT';
     // cleanup
     delete window.pskl_exports;
     delete window.loadDebugScripts;
