@@ -20,7 +20,7 @@ if (typeof importScripts === 'function') {
   },
   {
     "url": "index.html",
-    "revision": "886a0a9b36276d0c7e355cd9d7c9cd19"
+    "revision": "d30db5991691017c305e4f9d4c3b06c2"
   },
   {
     "url": "libGD.js",
