@@ -20,7 +20,7 @@ if (typeof importScripts === 'function') {
   },
   {
     "url": "index.html",
-    "revision": "684cc59270f4a1804c3a534265d457ff"
+    "revision": "b6c06406974e30f8fde560c1873e72f1"
   },
   {
     "url": "libGD.js",
@@ -295,16 +295,16 @@ if (typeof importScripts === 'function') {
     "revision": "05c5a0f43dc623e21b43428be981155c"
   },
   {
-    "url": "static/js/browser-app.d868f974.chunk.js",
-    "revision": "ea62542bd4907922d728c4543a3dd603"
+    "url": "static/js/browser-app.0a084051.chunk.js",
+    "revision": "341715047af258e9198aa2ab45dd1846"
   },
   {
-    "url": "static/js/main.bf9113f2.chunk.js",
-    "revision": "276c1ebd392543227a79fca852b9ae36"
+    "url": "static/js/main.39f1b3ba.chunk.js",
+    "revision": "f5201a0ad5779c438ec812930771dc3f"
   },
   {
-    "url": "static/js/runtime~main.27cf343b.js",
-    "revision": "b15dc1792c0c93cb32658b33f4dfebfb"
+    "url": "static/js/runtime~main.fbacd710.js",
+    "revision": "c361cff7934a986ddd287a10182afc7f"
   },
   {
     "url": "CppPlatform/Extensions/AESicon16.png",
@@ -4933,31 +4933,22 @@ if (typeof importScripts === 'function') {
       blacklist: [/^\/_/, /\/[^\/]+\.[^\/]+$/],
     });
 
-    // Cache resources from GDevelop cloudfront server (CORS enabled).
-    workbox.routing.registerRoute(
-      /https:\/\/resources\.gdevelop-app\.com\/.*$/,
-      workbox.strategies.networkFirst({
-        cacheName: 'gdevelop-resources-cache',
-        plugins: [
-          new workbox.expiration.Plugin({
-            maxEntries: 500,
-          }),
-        ],
-      })
-    );
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-    // TODO: this should be useless?
-    workbox.routing.registerRoute(
-      /\.(?:png|gif|jpg|jpeg)$/,
-      workbox.strategies.networkFirst({
-        cacheName: 'images',
-        plugins: [
-          new workbox.expiration.Plugin({
-            maxEntries: 150,
-          }),
-        ],
-      })
-    );
+    if (!isSafari) {
+      // Cache resources from resources.gdevelop-app.com.
+      workbox.routing.registerRoute(
+        /https:\/\/resources\.gdevelop-app\.com\/.*$/,
+        workbox.strategies.networkFirst({
+          cacheName: 'gdevelop-resources-cache',
+          plugins: [
+            new workbox.expiration.Plugin({
+              maxEntries: 500,
+            }),
+          ],
+        })
+      );
+    }
   } else {
     console.log('Workbox could not be loaded - no offline support');
   }
