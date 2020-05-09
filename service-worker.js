@@ -20,7 +20,7 @@ if (typeof importScripts === 'function') {
   },
   {
     "url": "index.html",
-    "revision": "89ef08d17cd345ed1f17da7d2c54395d"
+    "revision": "808ca7ce7035384c614de1d3a9574828"
   },
   {
     "url": "libGD.js",
@@ -299,8 +299,8 @@ if (typeof importScripts === 'function') {
     "revision": "e5e0475a77d4933c0af1ea32506c37ba"
   },
   {
-    "url": "static/js/main.7fee5246.chunk.js",
-    "revision": "a866b10e307dd8566e2ddcf459cad3ab"
+    "url": "static/js/main.a41f7c1a.chunk.js",
+    "revision": "bb3e9325c55cefa7c0127fe6aa1de480"
   },
   {
     "url": "static/js/runtime-main.ad99986d.js",
