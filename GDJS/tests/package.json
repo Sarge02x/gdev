@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^1.21.4"
+    "mocha": "^10.1.0"
   },
   "devDependencies": {
     "karma": "^1.7.1",
